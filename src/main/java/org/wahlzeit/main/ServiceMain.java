@@ -87,6 +87,14 @@ public class ServiceMain extends ModelMain {
 
 	/**
 	 *
+	 * @param bMode
+     */
+	public void setProductionMode(boolean bMode){
+		instance.isInProduction = bMode;
+	}
+
+	/**
+	 *
 	 */
 	public void startUp(boolean inProduction, String rootDir) throws Exception {
 		isInProduction = inProduction;
