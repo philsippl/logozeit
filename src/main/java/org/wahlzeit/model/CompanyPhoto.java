@@ -1,9 +1,12 @@
 package org.wahlzeit.model;
 
 
+import com.googlecode.objectify.annotation.Subclass;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Subclass
 public class CompanyPhoto extends Photo implements Serializable{
 
     public static final String SECTOR = "sector";
