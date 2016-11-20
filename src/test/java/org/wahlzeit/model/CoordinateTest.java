@@ -14,53 +14,86 @@ public class CoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalLongitudeConstructor() {
-        new Coordinate(20, 10000);
+        new SphericCoordinate(20, 10000);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalLatitudeConstructor() {
-        new Coordinate(10000, 20);
+        new SphericCoordinate(10000, 20);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalLongitude() {
-        Coordinate c = new Coordinate();
-        c.setLongitude(1000);
+        SphericCoordinate c = new SphericCoordinate();
+        c.setLatitude(1000);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalLatitude() {
-        Coordinate c = new Coordinate();
+        SphericCoordinate c = new SphericCoordinate();
         c.setLatitude(1000);
     }
 
     @Test
-    public void testSameDistance() {
-        Coordinate c = new Coordinate(45,45);
+    public void testSameDistanceSpheric() {
+        Coordinate c = new SphericCoordinate(45,45);
         assertEquals(c.getDistance(c), 0.0d, DELTA);
     }
 
     @Test
-    public void testSameDistanceTwoSidesLat() {
-        Coordinate c1 = new Coordinate(0,0);
-        Coordinate c2 = new Coordinate(90,0);
-        Coordinate c3 = new Coordinate(-90,0);
+    public void testSameDistanceTwoSidesLatSpheric() {
+        SphericCoordinate c1 = new SphericCoordinate(0,0);
+        SphericCoordinate c2 = new SphericCoordinate(90,0);
+        SphericCoordinate c3 = new SphericCoordinate(-90,0);
         assertEquals(c1.getDistance(c2), c1.getDistance(c3), DELTA);
     }
 
     @Test
-    public void testSameDistanceTwoSidesLon() {
-        Coordinate c1 = new Coordinate(0,0);
-        Coordinate c2 = new Coordinate(0,180);
-        Coordinate c3 = new Coordinate(0,-180);
+    public void testSameDistanceTwoSidesLonSpheric() {
+        SphericCoordinate c1 = new SphericCoordinate(0,0);
+        SphericCoordinate c2 = new SphericCoordinate(0,180);
+        SphericCoordinate c3 = new SphericCoordinate(0,-180);
         assertEquals(c1.getDistance(c2), c1.getDistance(c3), DELTA);
     }
 
     @Test
-    public void testDistance() {
-        Coordinate c1 = new Coordinate(10,30);
-        Coordinate c2 = new Coordinate(40, 100);
-        assertEquals(c1.getDistance(c2), 10332.263, DELTA);
+    public void testDistanceSpheric() {
+        SphericCoordinate c1 = new SphericCoordinate(10,30);
+        SphericCoordinate c2 = new SphericCoordinate(47,11);
+        assertEquals(c1.getDistance(c2), 2445.8749, DELTA);
     }
+
+    @Test
+    public void testDistanceCartesian() {
+        //same coordinates as used in testDistanceSpheric, converted with http://keisan.casio.com/exec/system/1359534351
+        CartesianCoordinate c1 = new CartesianCoordinate(3137.105097, 553.15627, 5517.447848);
+        CartesianCoordinate c2 = new CartesianCoordinate(829.0672891,889.0658194, 6253.946786);
+        assertEquals(c1.getDistance(c2), 2445.8749, DELTA);
+    }
+
+    @Test
+    public void testSameCoordinateSphericCartesian() {
+        SphericCoordinate c1 = new SphericCoordinate(10,30);
+        //converted with http://keisan.casio.com/exec/system/1359534351
+        assertEquals(c1.getX(), 3137.105097, DELTA);
+        assertEquals(c1.getY(), 553.15627, DELTA);
+        assertEquals(c1.getZ(), 5517.447848, DELTA);
+    }
+
+    @Test
+    public void testSameDistanceSphericCartesian() {
+        SphericCoordinate c1 = new SphericCoordinate(10,30);
+        //converted with http://keisan.casio.com/exec/system/1359534351
+        CartesianCoordinate c2 = new CartesianCoordinate(3137.105097, 553.15627, 5517.447848);
+        assertEquals(c1.getDistance(c2), 0, DELTA);
+    }
+
+    @Test
+    public void testSameCoordinateseCartesian() {
+        CartesianCoordinate c1 = new CartesianCoordinate(10, 10, 10);
+        CartesianCoordinate c2 = new CartesianCoordinate(10, 10, 10);
+        assertEquals(c1.getDistance(c2), 0, DELTA);
+    }
+
 
 }
