@@ -5,21 +5,21 @@ public interface Coordinate {
     /**
      * @methodtype get
      */
-    public double getX();
+    double getX();
 
     /**
      * @methodtype get
      */
-    public double getY();
+    double getY();
 
     /**
      * @methodtype get
      */
-    public double getZ();
+    double getZ();
 
     /**
      * @methodtype get
      */
-    public double getDistance(Coordinate cd);
+    double getDistance(Coordinate cd);
 
 }

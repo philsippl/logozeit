@@ -1,7 +1,7 @@
 package org.wahlzeit.model;
 
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
 
     public static final int EARTH_RADIUS = 6371;
 
@@ -80,19 +80,6 @@ public class SphericCoordinate implements Coordinate{
      */
     public void setRadius(double radius) {
         this.radius = radius;
-    }
-
-    /**
-     * @methodtype get
-     */
-    public double getDistance(Coordinate coordinate){
-        double x = this.getX();
-        double y = this.getY();
-        double z = this.getZ();
-        double otherX = coordinate.getX();
-        double otherY = coordinate.getY();
-        double otherZ = coordinate.getZ();
-        return Math.sqrt(Math.pow(otherX - x, 2) + Math.pow(otherY - y, 2) + Math.pow(otherZ - z, 2));
     }
 
     private void isLatitudeValid(double lat) throws IllegalArgumentException{

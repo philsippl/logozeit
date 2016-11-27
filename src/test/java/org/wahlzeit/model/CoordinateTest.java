@@ -74,10 +74,12 @@ public class CoordinateTest {
     @Test
     public void testSameCoordinateSphericCartesian() {
         SphericCoordinate c1 = new SphericCoordinate(10,30);
+        CartesianCoordinate c2 = new CartesianCoordinate(3137.105097, 553.15627, 5517.447848);
         //converted with http://keisan.casio.com/exec/system/1359534351
-        assertEquals(c1.getX(), 3137.105097, DELTA);
-        assertEquals(c1.getY(), 553.15627, DELTA);
-        assertEquals(c1.getZ(), 5517.447848, DELTA);
+        assertEquals(c1.getX(), c2.getX(), DELTA);
+        assertEquals(c1.getY(), c2.getY(), DELTA);
+        assertEquals(c1.getZ(), c2.getZ(), DELTA);
+        assertTrue(c1.isEqual(c2));
     }
 
     @Test
@@ -86,6 +88,7 @@ public class CoordinateTest {
         //converted with http://keisan.casio.com/exec/system/1359534351
         CartesianCoordinate c2 = new CartesianCoordinate(3137.105097, 553.15627, 5517.447848);
         assertEquals(c1.getDistance(c2), 0, DELTA);
+        assertTrue(c1.isEqual(c2));
     }
 
     @Test
@@ -93,7 +96,10 @@ public class CoordinateTest {
         CartesianCoordinate c1 = new CartesianCoordinate(10, 10, 10);
         CartesianCoordinate c2 = new CartesianCoordinate(10, 10, 10);
         assertEquals(c1.getDistance(c2), 0, DELTA);
+        assertTrue(c1.isEqual(c2));
     }
+
+
 
 
 }
