@@ -44,4 +44,15 @@ public class CartesianCoordinate extends AbstractCoordinate{
         return this.z;
     }
 
+
+    /**
+     * @methodtype assertion
+     */
+    protected void assertClassInvariants() {
+        assert isValidDoubleValue(x);
+        assert isValidDoubleValue(y);
+        assert isValidDoubleValue(z);
+    }
+
+
 }

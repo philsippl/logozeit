@@ -10,6 +10,7 @@ public class CoordinateTest {
 
     @Before
     public void setUp() {
+            
     }
 
     @Test(expected = IllegalArgumentException.class)

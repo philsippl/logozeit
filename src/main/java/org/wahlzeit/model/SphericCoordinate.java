@@ -94,5 +94,23 @@ public class SphericCoordinate extends AbstractCoordinate{
         }
     }
 
+    private boolean isLatitudeLongitudeValid(double lat, double lon){
+        try{
+            isLatitudeValid(lat);
+            isLongitudeValid(lon);
+        }catch(IllegalArgumentException e){
+            return false;
+        }
 
+        return true;
+    }
+
+
+    @Override
+    protected void assertClassInvariants() {
+        assert radius > 0;
+        assert isValidDoubleValue(latitude);
+        assert isValidDoubleValue(longitude);
+        assert isLatitudeLongitudeValid(latitude, longitude);
+    }
 }
