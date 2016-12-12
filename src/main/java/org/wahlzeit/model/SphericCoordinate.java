@@ -12,11 +12,11 @@ public class SphericCoordinate extends AbstractCoordinate{
     public SphericCoordinate() {}
 
     public SphericCoordinate(double latitude, double longitude, double radius) {
-        isLatitudeValid(latitude);
-        isLongitudeValid(longitude);
+        assertLatitudeLongitudeValid(latitude, longitude);
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+        assertClassInvariants();
     }
 
     public SphericCoordinate(double latitude, double longitude) {
@@ -28,8 +28,9 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     public void setLatitude(double latitude) {
-        isLatitudeValid(latitude);
+        assertLatitudeValid(latitude);
         this.latitude = latitude;
+        assertClassInvariants();
     }
 
     public double getLongitude() {
@@ -37,8 +38,9 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     public void setLongitude(double longitude) {
-        isLatitudeValid(longitude);
+        assertLatitudeValid(longitude);
         this.longitude = longitude;
+        assertClassInvariants();
     }
 
     /**
@@ -82,35 +84,46 @@ public class SphericCoordinate extends AbstractCoordinate{
         this.radius = radius;
     }
 
-    private void isLatitudeValid(double lat) throws IllegalArgumentException{
+    /**
+     * @methodtype assertion
+     */
+    private void assertLatitudeValid(double lat) throws IllegalArgumentException{
         if(lat < -90 || lat > 90){
             throw new IllegalArgumentException();
         }
     }
 
-    private void isLongitudeValid(double lon) throws IllegalArgumentException{
+    /**
+     * @methodtype assertion
+     */
+    private void assertLongitudeValid(double lon) throws IllegalArgumentException{
         if(lon < -180 || lon > 180){
             throw new IllegalArgumentException();
         }
     }
 
-    private boolean isLatitudeLongitudeValid(double lat, double lon){
-        try{
-            isLatitudeValid(lat);
-            isLongitudeValid(lon);
-        }catch(IllegalArgumentException e){
-            return false;
-        }
+    /**
+     * @methodtype assertion
+     */
+    private void assertLatitudeLongitudeValid(double lat, double lon){
+        assertLatitudeValid(lat);
+        assertLongitudeValid(lon);
+    }
 
-        return true;
+    /**
+     * @methodtype assertion
+     */
+    private void assertRadiusValid(){
+        if(radius <= 0)
+            throw new IllegalArgumentException();
     }
 
 
     @Override
     protected void assertClassInvariants() {
-        assert radius > 0;
-        assert isValidDoubleValue(latitude);
-        assert isValidDoubleValue(longitude);
-        assert isLatitudeLongitudeValid(latitude, longitude);
+        assertRadiusValid();
+        assertValidDoubleValue(latitude);
+        assertValidDoubleValue(longitude);
+        assertLatitudeLongitudeValid(latitude, longitude);
     }
 }

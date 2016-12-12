@@ -22,6 +22,7 @@ public class CompanyPhoto extends Photo implements Serializable{
      * @methodtype constructor
      */
     public CompanyPhoto(int numberOfEmployees, String name, Date foundingDate, String ceo, long valuation, CompanySector sector) {
+        assertCompanySectorNonNull(sector);
         this.numberOfEmployees = numberOfEmployees;
         this.name = name;
         this.foundingDate = foundingDate;
@@ -119,6 +120,12 @@ public class CompanyPhoto extends Photo implements Serializable{
      * @methodtype set
      */
     public void setSector(CompanySector sector) {
+        assertCompanySectorNonNull(sector);
         this.sector = sector;
+    }
+
+    private void assertCompanySectorNonNull(CompanySector cs){
+        if(cs == null)
+            throw new IllegalArgumentException();
     }
 }

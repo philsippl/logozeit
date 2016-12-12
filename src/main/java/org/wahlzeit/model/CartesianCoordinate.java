@@ -21,6 +21,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
         this.x = x;
         this.y = y;
         this.z = z;
+        assertClassInvariants();
     }
 
     /**
@@ -49,9 +50,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @methodtype assertion
      */
     protected void assertClassInvariants() {
-        assert isValidDoubleValue(x);
-        assert isValidDoubleValue(y);
-        assert isValidDoubleValue(z);
+        assertValidDoubleValue(x);
+        assertValidDoubleValue(y);
+        assertValidDoubleValue(z);
     }
 
 

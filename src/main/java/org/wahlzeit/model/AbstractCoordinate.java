@@ -9,8 +9,8 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     public double getDistance(Coordinate coordinate){
 
-        if(!isCoordinateValid(coordinate))
-            throw new IllegalArgumentException("coordinate is invalid");
+        assertNonNullCoordinate(coordinate);
+        assertValidCoordinate(coordinate);
 
 
         double x = this.getX();
@@ -22,7 +22,7 @@ public abstract class AbstractCoordinate implements Coordinate{
         double result = Math.sqrt(Math.pow(otherX - x, 2) + Math.pow(otherY - y, 2) + Math.pow(otherZ - z, 2));
 
 
-        assert isCoordinateValid(coordinate);
+        assertValidCoordinate(coordinate);
         assertClassInvariants();
 
         return result;
@@ -32,35 +32,41 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @methodtype comparison
      */
     public boolean isEqual(AbstractCoordinate coordinate){
-        if(!isCoordinateValid(coordinate))
-            throw new IllegalArgumentException("coordinate is invalid");
+        assertNonNullCoordinate(coordinate);
+        assertValidCoordinate(coordinate);
         assertClassInvariants();
-        return Math.abs(this.getDistance(coordinate)) < EPSILON;
+
+        boolean result = Math.abs(this.getDistance(coordinate)) < EPSILON;
+
+        assertClassInvariants();
+
+        return result;
     }
 
 
     /**
-     * @methodtype query
+     * @methodtype assertion
      */
-    protected boolean isCoordinateValid(Coordinate cd) {
-
-        if(!isValidDoubleValue(cd.getX()))
-            return false;
-        if(!isValidDoubleValue(cd.getY()))
-            return false;
-        if(!isValidDoubleValue(cd.getZ()))
-            return false;
-
-        return true;
+    protected void assertValidCoordinate(Coordinate cd) {
+        assertValidDoubleValue(cd.getX());
+        assertValidDoubleValue(cd.getY());
+        assertValidDoubleValue(cd.getZ());
     }
 
     /**
-     * @methodtype query
+     * @methodtype assertion
      */
-    protected boolean isValidDoubleValue(double value) {
+    protected void assertNonNullCoordinate(Coordinate cd) {
+        if(cd == null)
+            throw new IllegalArgumentException("null coordinate is not allowed");
+    }
+
+    /**
+     * @methodtype assertion
+     */
+    protected void assertValidDoubleValue(double value) {
         if(Double.isNaN(value) || Double.isInfinite(value))
-            return false;
-        return true;
+            throw new IllegalArgumentException("non valid value: "+value);
     }
 
     /**
