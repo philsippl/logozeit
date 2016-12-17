@@ -1,8 +1,12 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+
 public abstract class AbstractCoordinate implements Coordinate{
 
     private static final double EPSILON = 1e-4;
+    static final int MAX_SIZE = 1024;
+    protected static HashMap<Integer, AbstractCoordinate> instances = new HashMap<>(MAX_SIZE);
 
     /**
      * @methodtype get
@@ -73,4 +77,18 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @methodtype assertion
      */
     protected abstract void assertClassInvariants();
+
+    /**
+     * @methodtype factory
+     */
+    protected synchronized static AbstractCoordinate getInstance(AbstractCoordinate coordinate) {
+        AbstractCoordinate res = instances.get(coordinate.hashCode());
+        if(res == null || !res.equals(coordinate) || !(res.getClass().equals(coordinate.getClass()))) {
+                instances.put(coordinate.hashCode(), coordinate);
+                return coordinate;
+        }
+
+        return res;
+    }
+
 }

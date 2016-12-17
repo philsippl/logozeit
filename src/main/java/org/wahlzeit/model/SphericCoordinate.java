@@ -9,9 +9,9 @@ public class SphericCoordinate extends AbstractCoordinate{
     private double longitude;
     private double radius;
 
-    public SphericCoordinate() {}
+    private SphericCoordinate() {}
 
-    public SphericCoordinate(double latitude, double longitude, double radius) {
+    private SphericCoordinate(double latitude, double longitude, double radius) {
         assertLatitudeLongitudeValid(latitude, longitude);
         this.latitude = latitude;
         this.longitude = longitude;
@@ -19,8 +19,21 @@ public class SphericCoordinate extends AbstractCoordinate{
         assertClassInvariants();
     }
 
-    public SphericCoordinate(double latitude, double longitude) {
+    private SphericCoordinate(double latitude, double longitude) {
         this(latitude, longitude, EARTH_RADIUS);
+    }
+
+    public static SphericCoordinate getInstance() {
+        return getInstance(0.f, 0.f, 0.f);
+    }
+
+    public static SphericCoordinate getInstance(double latitude, double longitude) {
+        return getInstance(latitude, longitude, EARTH_RADIUS);
+    }
+
+    public static SphericCoordinate getInstance(double latitude, double longitude, double radius) {
+        SphericCoordinate sc = new SphericCoordinate(latitude, longitude, radius);
+        return (SphericCoordinate) getInstance(sc);
     }
 
     public double getLatitude() {
@@ -125,5 +138,31 @@ public class SphericCoordinate extends AbstractCoordinate{
         assertValidDoubleValue(latitude);
         assertValidDoubleValue(longitude);
         assertLatitudeLongitudeValid(latitude, longitude);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SphericCoordinate that = (SphericCoordinate) o;
+
+        if (Double.compare(that.latitude, latitude) != 0) return false;
+        if (Double.compare(that.longitude, longitude) != 0) return false;
+        return Double.compare(that.radius, radius) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(latitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(radius);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
