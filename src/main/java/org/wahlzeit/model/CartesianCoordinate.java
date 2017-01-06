@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
+
+@PatternInstance(patternName = "TemplateMethod", participants = {"ConcreteClass"})
 public class CartesianCoordinate extends AbstractCoordinate{
     private double x;
     private double y;

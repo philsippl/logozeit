@@ -33,6 +33,7 @@ import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.mailing.EmailService;
 import org.wahlzeit.services.mailing.EmailServiceManager;
+import org.wahlzeit.utils.PatternInstance;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;
 
@@ -42,6 +43,7 @@ import java.util.logging.Logger;
 /**
  * A handler class for a specific web form.
  */
+@PatternInstance(patternName = "ModelViewController", participants = {"Controller"})
 public class FlagPhotoFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(FlagPhotoFormHandler.class.getName());

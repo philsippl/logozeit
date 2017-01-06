@@ -1,6 +1,8 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
 
+@PatternInstance(patternName = "TemplateMethod", participants = {"ConcreteClass"})
 public class SphericCoordinate extends AbstractCoordinate{
 
     public static final int EARTH_RADIUS = 6371;

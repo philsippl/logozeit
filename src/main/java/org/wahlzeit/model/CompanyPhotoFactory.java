@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.PatternInstance;
 
+@PatternInstance(patternName = "Abstract Factory", participants = {"Concrete Factory"})
 public class CompanyPhotoFactory extends PhotoFactory {
 
     private static final Logger log = Logger.getLogger(CompanyPhotoFactory.class.getName());
