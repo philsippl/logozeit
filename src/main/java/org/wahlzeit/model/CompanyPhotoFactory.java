@@ -25,22 +25,15 @@ public class CompanyPhotoFactory extends PhotoFactory {
     /**
      * @methodtype factory
      */
-    public CompanyPhoto createPhoto() {
-        return new CompanyPhoto();
+    public CompanyPhoto createPhoto(Company company) {
+        return new CompanyPhoto(company);
     }
 
     /**
      * @methodtype factory
      */
-    public CompanyPhoto createPhoto(PhotoId id) {
-        return new CompanyPhoto(id);
-    }
-
-    /**
-     * @methodtype factory
-     */
-    public CompanyPhoto createPhoto(int numberOfEmployees, String name, Date foundingDate, String ceo, long valuation, CompanySector sector){
-        return new CompanyPhoto(numberOfEmployees, name, foundingDate, ceo, valuation, sector);
+    public CompanyPhoto createPhoto(PhotoId id, Company company) {
+        return new CompanyPhoto(id, company);
     }
 
     /**
